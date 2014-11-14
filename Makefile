@@ -62,8 +62,8 @@ build: submodules compile mkdirs $(BUILD_PATH)/.install_rocks
 	@cp -rp ${PWD}/src/*.lua ${BUILD_PATH}${SHARE_DIR}
 	@cp ${PWD}/src/robots.txt ${BUILD_PATH}${SHARE_DIR}
 	@cp ${PWD}/src/config/nginx.conf.sample ${BUILD_PATH}${CONF_DIR}/sites-available/${PKG_NAME}.conf.sample
-	@cp ${PWD}/src/ssl/server.crt ${BUILD_PATH}${CONF_DIR}/ssl/server.crt
-	@cp ${PWD}/src/ssl/server.key ${BUILD_PATH}${CONF_DIR}/ssl/server.key
+	@cp ${PWD}/src/ssl/*.crt ${BUILD_PATH}${CONF_DIR}/ssl/
+	@cp ${PWD}/src/ssl/*.key ${BUILD_PATH}${CONF_DIR}/ssl/
 
 submodules:
 	git submodule init

@@ -5,7 +5,7 @@ require 'sinatra'
     token = request.env['HTTP_AUTH_TOKEN']
     $stderr.write "apiserver2 #{request.url} token = #{token}\n"
 
-    if token != 'LIVEKALEFLEXD'
+    if token.nil? || token == ""
       halt 401, 'Ooops, request not authenticated. Did you login?'
       #haml :loggedout, :content_type => 'text/html'
     else
