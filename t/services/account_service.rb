@@ -6,7 +6,7 @@ require "uri"
 KEYMASTER_URI = 'http://localhost:9081/api/auth/service/v1/account_master_token.json'
 
 
-post '/' do
+post '/account' do
   $stderr.write "accountservice #{request.url}\n"
   service = request['service']
   username = request['username']
@@ -26,17 +26,17 @@ post '/' do
   end
 end
 
-get '/' do
+get '/account' do
   $stderr.write "accountservice #{request.url}\n"
   haml :login, :content_type => 'text/html'
 end
 
-get '/password' do
+get '/account/password' do
   $stderr.write "accountservice #{request.url}\n"
   haml :password, :content_type => 'text/html'
 end
 
-get '/settings' do
+get '/account/settings' do
   $stderr.write "accountservice #{request.url}\n"
   token = request.env['HTTP_AUTH_TOKEN']
   $stderr.write "accountservice #{request.url} token = #{token}\n"
@@ -48,11 +48,11 @@ get '/settings' do
   end
 end
 
-get '/forbidden' do
+get '/account/forbidden' do
   halt(403, haml(:forbidden))
 end
 
-get '/not_found' do
+get '/account/not_found' do
   halt(404, haml(:not_found))
 end
 
@@ -68,19 +68,19 @@ __END__
 
 @@ index
 %h1 Welcome to the Account Service!
-%a{:href => '/logout?destination=/b/'}
+%a{:href => '/account/logout?destination=/b/'}
   logout
 
 @@ loggedout
 %h1 Oops, You are not logged in.
-%a{:href => '/b/login'}
+%a{:href => '/account/b/login'}
   login
 
 @@ login
 %h1
   ACCOUNT SERVICE LOGIN
 
-%form{:action => "/", :method => 'post'}
+%form{:action => "/account", :method => 'post'}
   %label
     Username
     %input{:name => "username", :type => "text", :value => "user@example.com"}

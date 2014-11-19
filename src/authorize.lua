@@ -52,6 +52,7 @@ end
 if not service then
   if service_host then
     ngx.log(ngx.DEBUG, "==== no valid service for host provided: " .. service_host)
+  end
   if service_uri then
     ngx.log(ngx.DEBUG, "==== no valid service for uri provided: " .. service_uri)
   end
