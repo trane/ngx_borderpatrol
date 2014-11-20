@@ -1,5 +1,9 @@
 require 'sinatra'
 
+post '/' do
+  $stderr.write "apiserver #{request.url}"
+end
+
 ["/", "/first/second"].each do |path|
   get path do
     token = request.env['HTTP_AUTH_TOKEN']

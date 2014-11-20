@@ -12,7 +12,6 @@ http {
 
   proxy_set_header Host $host;
   proxy_set_header X-Forwarded-Proto $scheme;
-  proxy_set_header X-Forwarded-Proto $scheme;
 
   ssl_prefer_server_ciphers on;
   ssl_protocols             TLSv1 TLSv1.1 TLSv1.2;
@@ -76,7 +75,6 @@ http {
     include '../common_locations.conf';
 
     location ~ ^/ {
-      content_by_lua_file '../../build/usr/share/borderpatrol/authorize.lua';
       limit_req zone=auth_zone burst=25;
       set $original_uri $uri;
       set $via "1.1  $host (Borderpatrol)";
@@ -88,6 +86,8 @@ http {
       access_by_lua_file '../../build//usr/share/borderpatrol/access.lua';
       proxy_set_header auth-token $auth_token;
       proxy_pass http://b;
+      proxy_set_header Host $host;
+      proxy_set_header X-Forwarded-Proto $scheme;
       proxy_intercept_errors on;
       error_page 401  = @redirect;
       error_page 403 = @forbidden;
